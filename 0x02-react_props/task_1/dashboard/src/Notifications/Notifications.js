@@ -3,37 +3,38 @@ import './Notifications.css';
 import close_icon from '../assets/close-icon.png';
 import { getLatestNotification } from '../utils/utils';
 
-function Notifications() {
+const Notifications = () => {
   return (
-    <div className="Notifications">
+    <div className='Notifications'>
       <p>Here is the list of notifications</p>
-      <ul style={{position: 'relative'}}>
+      <ul>
         <li data-priority='default'>New course available</li>
         <li data-priority='urgent'>New resume available</li>
-        <li data-priority='urgent' dangerouslySetInnerHTML={{__html: getLatestNotification()}}></li>
+        <li data-priority='urgent'>
+          <div
+            dangerouslySetInnerHTML={{ __html: `${getLatestNotification()}` }}
+          ></div>
+        </li>
       </ul>
-      <button onClick={() => buttonClick()} aria-label="Close" style={buttonStyle}>
-        <img alt="close icon" src={close_icon} style={imageStyle}/>
+      <button
+        type='button'
+        aria-label='Close'
+        onClick={() => console.log('Close button has been clicked')}
+        style={{
+          display: 'inline-block',
+          position: 'absolute',
+          top: '16px',
+          right: '16px',
+          background: 0,
+          border: 0,
+          outline: 'none',
+          cursor: 'pointer',
+        }}
+      >
+        <img src={close_icon} alt='' style={{ width: '8px', height: '8px' }} />
       </button>
     </div>
   );
-}
-
-const buttonClick = () => {
-  console.log('Close button has been clicked');
-}
-
-const buttonStyle = {
-  position: 'absolute',
-  top: '1em',
-  right: '1em',
-  background: 'transparent',
-  border: 'none',
-}
-
-const imageStyle = {
-  width: '.7rem',
-  height: '.7rem',
-}
+};
 
 export default Notifications;
