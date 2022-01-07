@@ -1,43 +1,34 @@
-:root {
-  --holberton-red: #f02d37
-}
-
-*,
-*:before,
-*:after {
-  margin: 0;
-  box-sizing: border-box;
-}
-
-.App {
-  font-family: Arial, Helvetica, sans-serif;
-}
 .App-header {
-  border-bottom: 3px solid var(--holberton-red);
   display: flex;
+  color: #e0344a;
   align-items: center;
-  height: 162px;
-  width: 100%;
+  border-bottom: thick solid #e0344a;
 }
+
 .App-header img {
-  height: 155px;
-  width: 155px;
+  width: 144px;
 }
+
 .App-header h1 {
-  color: var(--holberton-red);
-  font-size: 2rem;
+  margin: 0;
 }
+
 .App-body {
-  margin-top: 4rem;
-  height: calc(100vh - 7rem - 162px);
+  padding: 16px 24px;
 }
-.App-body p {
-  margin-left: 2.5rem;
+.App-body input,
+.App-body button {
+  margin: 4px;
 }
+.App-body button {
+  cursor: pointer;
+}
+
 .App-footer {
-  border-top: 3px solid var(--holberton-red);
-  display: grid;
-  place-items: center;
-  height: 3rem;
   width: 100%;
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  font-style: italic;
+  border-top: thick solid #e0344a;
 }
