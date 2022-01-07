@@ -1,26 +1,10 @@
-:root {
-    --main-color: #e01d3f;
-}
-
 .Notifications {
-    border: 3px dashed var(--main-color);
-    padding: 10px;
-    margin-bottom: 20px;
+  border: thin dotted #e0344a;
+  padding: 16px;
 }
-
-.Notifications button img {
-    width: 10px;
+ul li[data-priority='urgent'] {
+  color: red;
 }
-
-.Notifications p {
-    margin: 0;
-    margin-top: 15px;
-}
-
-[data-priority="default"] {
-    color: blue;
-}
-
-[data-priority="urgent"] {
-    color: red;
+ul li[data-priority='default'] {
+  color: blue;
 }
