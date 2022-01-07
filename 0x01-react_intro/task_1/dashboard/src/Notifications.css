@@ -1,8 +1,4 @@
-:root {
-  --holberton-red: #f02d37
-}
-
 .Notifications {
-	border: 1px dotted var(--holberton-red);
-	padding: 1rem;
+  border: thin dotted #e0344a;
+  padding: 16px;
 }
