@@ -1,40 +1,40 @@
 import React from 'react';
 import './Notifications.css';
-import NotificationItem from './NotificationItem'
 import close_icon from '../assets/close-icon.png';
 import { getLatestNotification } from '../utils/utils';
+import NotificationItem from './NotificationItem';
 
-function Notifications() {
+const Notifications = () => {
   return (
-    <div className="Notifications">
+    <div className='Notifications'>
       <p>Here is the list of notifications</p>
-      <ul style={{position: 'relative'}}>
-        <NotificationItem type='default' value="New course available" />
-        <NotificationItem type='urgent' value="New resume available" />
-        <NotificationItem type='urgent' html={{__html: getLatestNotification()}} />
+      <ul>
+        <NotificationItem type='default' value='New course available' />
+        <NotificationItem type='urgent' value='New resume available' />
+        <NotificationItem
+          type='urgent'
+          html={{ __html: getLatestNotification() }}
+        />
       </ul>
-      <button onClick={() => buttonClick()} aria-label="Close" style={buttonStyle}>
-        <img alt="close icon" src={close_icon} style={imageStyle}/>
+      <button
+        type='button'
+        aria-label='Close'
+        onClick={() => console.log('Close button has been clicked')}
+        style={{
+          display: 'inline-block',
+          position: 'absolute',
+          top: '16px',
+          right: '16px',
+          background: 0,
+          border: 0,
+          outline: 'none',
+          cursor: 'pointer',
+        }}
+      >
+        <img src={close_icon} alt='' style={{ width: '8px', height: '8px' }} />
       </button>
     </div>
   );
-}
-
-const buttonClick = () => {
-  console.log('Close button has been clicked');
-}
-
-const buttonStyle = {
-  position: 'absolute',
-  top: '1em',
-  right: '1em',
-  background: 'transparent',
-  border: 'none',
-}
-
-const imageStyle = {
-  width: '.7rem',
-  height: '.7rem',
-}
+};
 
 export default Notifications;
