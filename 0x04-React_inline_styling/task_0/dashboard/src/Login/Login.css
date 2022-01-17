@@ -1,15 +1,12 @@
-.App {
-  text-align: center;
+:root {
+  --main-color: #e01d3f;
 }
 
-.App-body {
-  font-weight: bold;
-  text-align: left;
-  margin-top: 3.5rem;
-  margin-left: 2.5rem;
-  min-height: 60vh;
+.login {
+  margin: 50px;
+  flex-grow: 1;
 }
-
-#email, #password {
-  margin: .40rem;
+.login input {
+  margin-left: 10px;
+  margin-right: 20px;
 }

@@ -1,48 +1,29 @@
-/**
-* @jest-environment jsdom
-*/
-
-import React from "react";
-import { render, unmountComponentAtNode } from "react-dom";
-import { act } from "react-dom/test-utils";
 import { getFullYear, getFooterCopy, getLatestNotification } from "./utils";
 
-let container = null;
-beforeEach(() => {
-  // setup a DOM element as a render target
-  container = document.createElement("div");
-  document.body.appendChild(container);
-});
-
-afterEach(() => {
-  //cleanup on exiting
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
-});
-
-it("returns the current year", () => {
-  act(() => {
-    render(getFullYear(), container);
+describe("utils_tests", function () {
+  describe("getFullYear", function () {
+    it("should return current year", function () {
+      const year = getFullYear();
+      expect(year).toEqual(new Date().getFullYear());
+    });
   });
-  expect(container.textContent).toBe("2021");
-});
+  describe("getFooterCopy", function () {
+    const trueMsg = "Holberton School";
+    const falseMsg = "Holberton School main dashboard";
 
-it("getFooterCopy returns the correct string when the argument is true or false", () => {
-  act(() => {
-    render(getFooterCopy(true), container);
+    it("Should return true message", function () {
+      const msg = getFooterCopy(true);
+      expect(msg).toEqual(trueMsg);
+    });
+    it("Should return false message", function () {
+      const msg = getFooterCopy(false);
+      expect(msg).toEqual(falseMsg);
+    });
   });
-  expect(container.textContent).toBe("Holberton School");
-
-  act(() => {
-    render(getFooterCopy(false), container);
-  });
-  expect(container.textContent).toBe("Holberton School main dashboard");
-});
-
-it("returns correct string when function is called", () => {
-  act(() => {
-    render(getLatestNotification(), container);
-    expect(container.textContent).toBe("<strong>Urgent requirement</strong> - complete by EOD");
+  describe("getLatestNotification", function () {
+    it("shold return correct string element", function () {
+      const element = "<strong>Urgent requirement</strong> - complete by EOD";
+      expect(getLatestNotification()).toEqual(element);
+    });
   });
 });

@@ -1,89 +1,88 @@
-import React, {Component} from "react";
-import Notifications from '../Notifications/Notifications.js';
-import Login from '../Login/Login.js';
-import Header from '../Header/Header.js';
-import Footer from '../Footer/Footer.js';
-import PropTypes from 'prop-types';
-import CourseList from '../CourseList/CourseList.js';
-import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom.js';
-import BodySection from '../BodySection/BodySection.js';
-import { getLatestNotification } from '../utils/utils.js';
+import React, { Component } from "react";
+import Notifications from "../Notifications/Notifications";
+import Header from "../Header/Header";
+import BodySection from "../BodySection/BodySection";
+import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
+import Login from "../Login/Login";
+import CourseList from "../CourseList/CourseList";
+import Footer from "../Footer/Footer";
+import PropTypes from "prop-types";
+import { getLatestNotification } from "../utils/utils";
+import "./App.css";
+import WithLogging from "../HOC/WithLogging";
 
-class App extends React.Component {
+const listCourses = [
+  { id: 1, name: "ES6", credit: 60 },
+  { id: 2, name: "Webpack", credit: 20 },
+  { id: 3, name: "React", credit: 40 },
+];
+
+const listNotifications = [
+  { id: 1, type: "default", value: "New course available" },
+  { id: 2, type: "urgent", value: "New resume available" },
+  { id: 3, type: "urgent", html: { __html: getLatestNotification() } },
+];
+
+class App extends Component {
   constructor(props) {
     super(props);
+    this.handleKeyCombination = this.handleKeyCombination.bind(this);
+  }
+
+  handleKeyCombination(e) {
+    if (e.key === "h" && e.ctrlKey) {
+      alert("Logging you out");
+      this.props.logOut();
+    }
   }
 
   componentDidMount() {
-    document.addEventListener('keydown', event => {
-      if (event.ctrlKey && event.key === 'h') {
-        alert('Logging you out');
-        this.props.logOut();
-      }
-    });
+    document.addEventListener("keydown", this.handleKeyCombination);
   }
 
   componentWillUnmount() {
-    document.addEventListener('keydown', event => {
-      if (event.ctrlKey && event.key === 'h') {
-        alert('Logging you out');
-        this.props.logOut();
-      }
-    });
+    document.removeEventListener("keydown", this.handleKeyCombination);
   }
 
   render() {
-    const {isLoggedIn} = this.props
-    const listCourses = [
-      {id: 1, name: 'ES6', credit: 60},
-      {id: 2, name: 'Webpack', credit: 20},
-      {id: 3, name: 'React', credit: 40}
-    ];
-
-    const listNotifications = [
-      {id: 1, type: 'default', value: 'New courses available'},
-      {id: 2, type: 'urgent', value: 'New resume available'},
-      {id: 3, type: 'urgent', html: {__html: getLatestNotification()}}
-    ];
+    const { isLoggedIn, logOut } = this.props;
     return (
       <>
         <Notifications listNotifications={listNotifications} />
-        <div className='App'>
+        <div className="App">
           <Header />
-          { isLoggedIn 
-          ? <BodySectionWithMarginBottom title='Course List'>
-              <CourseList listCourses={listCourses} /></BodySectionWithMarginBottom>
-          : <BodySectionWithMarginBottom title='Log in to continue'>
-              <Login /></BodySectionWithMarginBottom>
-          }
-          <BodySection title='News from the School'>
-            <p>Now is the winter of our discontent
-              Made glorious summer by this sun of York;
-              And all the clouds that lour'd upon our house
-              In the deep bosom of the ocean buried.
-              Now are our brows bound with victorious wreaths;
-              Our bruised arms hung up for monuments;
-              Our stern alarums changed to merry meetings,
-              Our dreadful marches to delightful measures.
-              Grim-visaged war hath smooth'd his wrinkled front;
-              And now, instead of mounting barded steeds
-              To fright the souls of fearful adversaries.</p>
-          </BodySection>
+        </div>
+        <div className="App-body">
+          {!isLoggedIn ? (
+            <BodySectionWithMarginBottom title="Log in to continue">
+              <Login />
+            </BodySectionWithMarginBottom>
+          ) : (
+            <BodySectionWithMarginBottom title="Course list">
+              <CourseList listCourses={listCourses} />
+            </BodySectionWithMarginBottom>
+          )}
+        </div>
+        <BodySection title="News from the School">
+          <p>Some Random Text</p>
+        </BodySection>
+
+        <div className="App-footer">
           <Footer />
         </div>
-      </> 
+      </>
     );
   }
-}  
-
-App.propTypes = {
-  isLoggedIn: PropTypes.bool,
-  logOut: PropTypes.func
-};
+}
 
 App.defaultProps = {
   isLoggedIn: false,
-  logOut: () => {}
+  logOut: () => {},
+};
+
+App.propTypes = {
+  isLoggedIn: PropTypes.bool,
+  logOut: PropTypes.func,
 };
 
 export default App;

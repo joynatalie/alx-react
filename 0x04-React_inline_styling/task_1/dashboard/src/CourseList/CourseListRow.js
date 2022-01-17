@@ -1,59 +1,52 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, css } from 'aphrodite';
+import React from "react";
+import PropTypes from "prop-types";
+import "./CourseList.css";
+
+const rowStyles = { backgroundColor: "#f5f5f5ab" };
+const headerRowStyles = { backgroundColor: "#deb5b545" };
 
 function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
-  
-  return (
-    <>
-      <tr className={cs(styles.tr)}>
-        { isHeader && textSecondCell === null && (
-          <th className={css(styles.headerStyle)} colSpan={2}>{textFirstCell}</th>
-        )}
-        { isHeader && textSecondCell !== null && (
-          <>
-            <th className={css(styles.headerStyle)}>{textFirstCell}</th>
-            <th className={css(styles.headerStyle)}>{textSecondCell}</th>
-          </>
-        )}
-        { !isHeader && (
-          <>
-            <td className={css(styles.rowStyle)}>{textFirstCell}</td>
-            <td className={css(styles.rowStyle)}>{textSecondCell}</td>
-          </>
-        )}
-      </tr>
-    </>
-  );
+  let element;
+
+  if (isHeader === true) {
+    //
+    if (textSecondCell === null) {
+      element = <th colSpan="2">{textFirstCell}</th>;
+    } else {
+      element = (
+        <>
+          <th>{textFirstCell}</th>
+          <th>{textSecondCell}</th>
+        </>
+      );
+    }
+    //
+  } else if (isHeader === false) {
+    element = (
+      <>
+        <td>{textFirstCell}</td>
+        <td>{textSecondCell}</td>
+      </>
+    );
+  }
+
+  let isHeaderStyle;
+
+  if (isHeader) isHeaderStyle = headerRowStyles;
+  else isHeaderStyle = rowStyles;
+
+  return <tr style={isHeaderStyle}>{element}</tr>;
 }
+
+CourseListRow.defaultProps = {
+  isHeader: false,
+  textSecondCell: null,
+};
 
 CourseListRow.propTypes = {
   isHeader: PropTypes.bool,
   textFirstCell: PropTypes.string.isRequired,
-  textSecondCell: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ])
+  textSecondCell: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
-
-CourseListRow.defaultProps = {
-  isHeader: false,
-  textSecondCell: null
-};
-
-const styles = StyleSheet.create({
-  tr: {
-    borderBottom: '1px solid rgb(153, 153, 153)',
-  },
-  th: {
-    borderBottom: '1px solid rgb(153, 153, 153)'
-  },
-  rowStyle: {
-    backgroundColor: '#f5f5f5ab',
-  },
-  headerStyle: {
-    backgroundColor: '#deb5b545',
-  },
-});
 
 export default CourseListRow;

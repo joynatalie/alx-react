@@ -1,19 +1,20 @@
-import React, {Component} from "react";
-import { StyleSheet, css } from 'aphrodite';
-import NotificationItem from './NotificationItem.js';
-import closeImg from '../assets/close-icon.png';
-import { getLatestNotification } from "../utils/utils.js";
-import PropTypes from 'prop-types';
-import NotificationItemShape from './NotificationItemShape.js';
+import React, { Component } from "react";
+import NotificationItem from "./NotificationItem";
+import PropTypes from "prop-types";
+import NotificationItemShape from "./NotificationItemShape";
+import closeIcon from "../assets/close-icon.png";
+import { StyleSheet, css } from "aphrodite";
 
-
-class Notifications extends React.Component {
+class Notifications extends Component {
   constructor(props) {
     super(props);
     this.markAsRead = this.markAsRead.bind(this);
   }
+
   shouldComponentUpdate(nextProps) {
-    return nextProps.length > this.props.listNotifications.length;
+    return (
+      nextProps.listNotifications.length > this.props.listNotifications.length
+    );
   }
 
   markAsRead(id) {
@@ -24,27 +25,45 @@ class Notifications extends React.Component {
     const { displayDrawer, listNotifications } = this.props;
     return (
       <>
-        <div className={css(styles.menuItem)}>
+        <div className={css(styles.menuItem)} id="menuItem">
           <p>Your notifications</p>
         </div>
-        { displayDrawer && (
-          <div className={css(styles.notifications)}>
-            <p>
+        {displayDrawer && (
+          <div className={css(styles.notifications)} id="Notifications">
+            <button
+              style={{
+                background: "transparent",
+                border: "none",
+                position: "absolute",
+                right: 20,
+              }}
+              aria-label="close"
+            >
+              <img
+                src={closeIcon}
+                alt="close-icon"
+                className={css(styles.notificationsButtonImage)}
+              />
+            </button>
+            <p className={css(styles.notificationsP)}>
               Here is the list of notifications
             </p>
             <ul>
-              { listNotifications.length > 0
-                ? listNotifications.map(({ markAsRead, type, value, html, id }) => (
-                  <NotificationItem markAsRead={this.markAsRead} id={id} type={type} value={value} html={html} key={id} />
-                ))
-                : <NotificationItem value='No new notification for now' />
-              }
+              {listNotifications.length === 0 && (
+                <NotificationItem value="No new notification for now" />
+              )}
+
+              {listNotifications.map((notification) => (
+                <NotificationItem
+                  key={notification.id}
+                  id={notification.id}
+                  type={notification.type}
+                  value={notification.value}
+                  html={notification.html}
+                  markAsRead={this.markAsRead}
+                />
+              ))}
             </ul>
-            <button style={{ position: "absolute", top: "4.25rem", right: "1rem" }}
-              aria-label="Close"
-              onClick={() => console.log('Close button has been clicked')}>
-              <img alt="close-icon" src={closeImg} width="10px" height="10px"/>
-            </button>
           </div>
         )}
       </>
@@ -52,39 +71,40 @@ class Notifications extends React.Component {
   }
 }
 
-Notifications.propTypes = {
-  displayDrawer: PropTypes.bool,
-  listNotifications: PropTypes.arrayOf(NotificationItemShape)
-};
-
 Notifications.defaultProps = {
   displayDrawer: false,
-  listNotifications: []
+  listNotifications: [],
+};
+
+Notifications.propTypes = {
+  displayDrawer: PropTypes.bool,
+  listNotifications: PropTypes.arrayOf(NotificationItemShape),
+};
+
+const cssVars = {
+  mainColor: "#e01d3f",
 };
 
 const styles = StyleSheet.create({
-  notifications: {
-    border: 'dashed #ec4242',
-    padding: '0.40rem',
-    float: 'right',
-    width: '30%'
-  },
-
   menuItem: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    paddingRight: '0.5rem'
+    textAlign: "right",
   },
 
-  default: {
-    color: 'blue'
+  notifications: {
+    float: "right",
+    border: `3px dashed ${cssVars.mainColor}`,
+    padding: "10px",
+    marginBottom: "20px",
   },
 
-  urgent: {
-    color: 'red'
+  notificationsButtonImage: {
+    width: "10px",
+  },
+
+  notificationsP: {
+    margin: 0,
+    marginTop: "15px",
   },
 });
-
-
 
 export default Notifications;

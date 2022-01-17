@@ -1,12 +1,13 @@
-.App {
-  text-align: center;
-}
-.hr {
-  border-top: 3.5px solid #ec4242;
+:root {
+  --main-color: #e01d3f;
 }
 
-.App-footer {
+.footer {
+  border-top: 3px solid var(--main-color);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
   font-style: italic;
-  font-weight: 700;
-  margin-bottom: 2rem;
 }

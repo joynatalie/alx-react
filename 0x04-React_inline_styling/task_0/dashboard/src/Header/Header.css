@@ -1,25 +1,14 @@
-.App {
-  text-align: center;
+:root {
+  --main-color: #e01d3f;
 }
 
-.App-logo {
-  height: 30vmin;
-  pointer-events: none;
-}
-
-
-
-.App-header {
+.header {
   display: flex;
   align-items: center;
-  font-size: calc(10px + 2vmin);
+  color: var(--main-color);
+  font-size: 20px;
 }
 
-.title {
-  color: #ec4242;
+.header img {
+  width: 200px;
 }
-
-.hr {
-  border-top: 3.5px solid #ec4242;
-}
-
