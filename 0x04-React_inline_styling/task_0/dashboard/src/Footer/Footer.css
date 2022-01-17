@@ -1,0 +1,12 @@
+.App {
+  text-align: center;
+}
+.hr {
+  border-top: 3.5px solid #ec4242;
+}
+
+.App-footer {
+  font-style: italic;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}

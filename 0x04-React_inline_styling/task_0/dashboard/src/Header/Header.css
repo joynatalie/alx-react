@@ -1,0 +1,25 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 30vmin;
+  pointer-events: none;
+}
+
+
+
+.App-header {
+  display: flex;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.title {
+  color: #ec4242;
+}
+
+.hr {
+  border-top: 3.5px solid #ec4242;
+}
+

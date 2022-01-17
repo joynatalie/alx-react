@@ -1,0 +1,15 @@
+.App {
+  text-align: center;
+}
+
+.App-body {
+  font-weight: bold;
+  text-align: left;
+  margin-top: 3.5rem;
+  margin-left: 2.5rem;
+  min-height: 60vh;
+}
+
+#email, #password {
+  margin: .40rem;
+}
